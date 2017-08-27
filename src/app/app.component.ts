@@ -6,22 +6,32 @@ import {Component} from '@angular/core';
     <h1>{{title}}</h1>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li *ngFor="let hero of heroes">
+      <li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
         <span class="badge">{{hero.id}}</span>{{hero.name}}
       </li>
     </ul>
+    <div *ngIf="selectedHero">
+      <h2>{{selectedHero.name}} details !</h2>
+      <div><label>id: </label>{{selectedHero.id}}</div>
+      <div>
+        <label>name: </label>
+        <input [(ngModel)]="selectedHero.name" placeholder="name">
+      </div>
+    </div>
   `,
   styles: [`
     .selected {
       background-color: #CFD8DC !important;
       color: white;
     }
+
     .heroes {
       margin: 0 0 2em 0;
       list-style-type: none;
       padding: 0;
       width: 15em;
     }
+
     .heroes li {
       cursor: pointer;
       position: relative;
@@ -32,19 +42,23 @@ import {Component} from '@angular/core';
       height: 1.6em;
       border-radius: 4px;
     }
+
     .heroes li.selected:hover {
       background-color: #BBD8DC !important;
       color: white;
     }
+
     .heroes li:hover {
       color: #607D8B;
       background-color: #DDD;
       left: .1em;
     }
+
     .heroes .text {
       position: relative;
       top: -3px;
     }
+
     .heroes .badge {
       display: inline-block;
       font-size: small;
@@ -76,11 +90,16 @@ export class AppComponent {
     {id: 20, name: 'Tornado'}
   ];
   heroes = this.HEROES;
+  selectedHero: Hero;
 
   hero: Hero = {
     id: 1,
     name: 'Windstorm'
   };
+
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero;
+  }
 }
 export class Hero {
   id: number;
