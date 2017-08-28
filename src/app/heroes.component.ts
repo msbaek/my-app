@@ -71,7 +71,6 @@ import {HeroService} from './hero.service';
   providers: [HeroService]
 })
 export class HeroesComponent implements OnInit {
-  title = 'My First Angular App';
   heroes: Hero[];
   selectedHero: Hero;
 
